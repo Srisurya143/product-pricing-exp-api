@@ -1,9 +1,0 @@
-%dw 2.0
-
-type auto_3df060a9_b61a_44e2_b5e8_90134fd5065c_Input_Payload = {|
-  apiName: String, 
-  status: String, 
-  apiVersion: String, 
-  correlationId: String
-|}
-

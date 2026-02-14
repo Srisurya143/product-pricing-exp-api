@@ -1,0 +1,14 @@
+http:
+  listener:
+    keystore:
+      path: "![]"
+      type: "![]"
+      alias: "![]"
+      keyPassword: "![]"
+      password: "![]"
+    truststore:
+      path: "![]"
+      type: "![]"
+      alias: "![]"
+      keyPassword: "![]"
+      password: "![]"

@@ -1,0 +1,13 @@
+api:
+  id: ""
+  
+productPricingPrcApi:
+  protocol: "HTTPS"
+  host: "localhost"
+  port: "8082"
+  baseUrl: "/api/v1"
+  productsPath: "/products"
+  productByIdPath: "/products/{productId}"
+  ping: "/ping"
+  healthCheck: "/healthcheck"
+  timeout: "30000"

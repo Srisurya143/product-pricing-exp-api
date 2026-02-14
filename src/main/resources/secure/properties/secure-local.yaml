@@ -1,0 +1,10 @@
+http:
+  listener:
+    keystore:
+      alias: "![EIBPJ+SJgIcIxbfNP9kctA==]"
+      keyPassword: "![viY52cq0EotMOmi/sspEXw==]"
+      password: "![viY52cq0EotMOmi/sspEXw==]"
+    truststore:
+      alias: "![7DX9ycoDenoMgCldHgAOkA==]"
+      keyPassword: "![WdE0voGGXueXmrJB2VOtzw==]"
+      password: "![WdE0voGGXueXmrJB2VOtzw==]"

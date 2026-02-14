@@ -1,0 +1,50 @@
+api:
+  Name: "product-pricing-exp-api"
+  Version: "1.0.0"
+  status: "Running"
+
+http:
+  listener:
+    host: "0.0.0.0"
+    port: "8092"
+    basePath: "/api/"
+    path: "v1/*"
+    readTimeout: "30000"
+    keystore:
+      path: "certs/listener.jks"
+    truststore:
+      path: "certs/truststore.jks"
+    connection:
+      idealTimeout: "40000"
+https:
+  port: "8092"
+
+  
+httpRetry:
+  frequency: "2000"
+  attempts: "3"
+  
+healthCheck:
+  reason: "Health Check"
+  ok: "OK"
+  okCode: "OK"
+  host: "localhost"
+  appName: "mdp-orders-prc-api"
+  isReachable: "mdp-orders-prc-api is reachable"
+  isNotReachable: "mdp-orders-prc-api is not reachable"
+  systems:
+    okCode: "OK"
+    error: "ERROR"
+
+  
+step:
+  processStart: "Process start"
+  processEnd: "Process End"
+  flowStart: "Flow Start"
+  flowEnd: "Flow End"
+  beforeRequest: "Before Request"
+  afterRequest: "After Request"
+  
+errorLogger:
+  transactionlevel: "Error"
+  status: "Error"

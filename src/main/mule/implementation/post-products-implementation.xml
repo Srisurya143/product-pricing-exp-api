@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="post-products-implementation-subflow" doc:id="c092dbf7-2628-4e46-bb93-7d0868a293b3" >
+		<ee:transform doc:name="updateFlowname" doc:id="459bedbb-4263-436c-bacf-1e83c7c747d5" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="flowName" ><![CDATA[%dw 2.0
+output application/json
+---
+vars.loggingVars update {
+	case .flowName -> flow.name
+}
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="15da25e4-cd4c-48e3-993b-d8e9f35f4b0f" name="common-flow-start-logging-subflow" />
+		<flow-ref doc:name="common-before-request-logging-subflow" doc:id="bba4fbe7-d5e3-4152-b12b-255dacfbeb0b" name="common-before-request-logging-subflow" />
+		<http:request doc:name="productsPricingPrcApiPostRequest" doc:id="61b8d419-34b9-40d2-89dc-a7d93518e6be" config-ref="product-pricing-prc-api-httpRequester-config" method="POST" path="${productPricingPrcApi:productsPath}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x-correlation-id" : vars.loggingVars.correlationId
+}]]]></http:headers>
+		</http:request>
+		<flow-ref doc:name="common-after-request-logging-subflow" doc:id="58d30d81-80fe-4a3c-a6ae-5b3abd1385c2" name="common-after-request-logging-subflow" />
+		<flow-ref doc:name="common-flow-end-logging-subflow" doc:id="fabaa46a-4a43-4308-af1c-d23bfb3f0e1f" name="common-flow-end-logging-subflow" />
+	</sub-flow>
+</mule>

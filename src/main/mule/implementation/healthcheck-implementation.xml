@@ -20,7 +20,13 @@ vars.loggingVars update {
 		</ee:transform>
 		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="57945dc8-e717-45ca-b780-019100a449ae" name="common-flow-start-logging-subflow" />
 		<flow-ref doc:name="common-before-request-logging-subflow" doc:id="bde35dae-b9ca-42a7-bce4-fe6ed5366c46" name="common-before-request-logging-subflow"/>
-		<http:request doc:name="Request" doc:id="683ef63a-cf44-4816-8704-ce8253bfb8f2" config-ref="product-pricing-prc-api-http-request-config" path="http://localhost:8082/v1/product-pricing-prc-api/health-check"/>
+		<http:request doc:name="healthCheckRequest" doc:id="683ef63a-cf44-4816-8704-ce8253bfb8f2" config-ref="product-pricing-prc-api-httpRequester-config" path="${productPricingPrcApi:healthCheck}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x-correlation-id" : vars.loggingVars.correlationId
+}]]]></http:headers>
+		</http:request>
 		<ee:transform doc:name="healthCheckResponse" doc:id="abd28c08-2d4a-436a-8746-314d59d4a8b0" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0

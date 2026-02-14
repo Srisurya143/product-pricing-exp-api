@@ -68,7 +68,7 @@ output application/json
 }]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>
-			<logger level="INFO" doc:name="flowStartLogger" doc:id="c2455d22-0cb4-4c65-8947-326e7ec3107d" />
+			<logger level="INFO" doc:name="flowStartLogger" doc:id="c2455d22-0cb4-4c65-8947-326e7ec3107d" message="#[payload]"/>
 		</async>
 	</sub-flow>
 	<sub-flow name="common-flow-end-logging-subflow" doc:id="3df060a9-b61a-44e2-b5e8-90134fd5065c" >
@@ -89,7 +89,7 @@ output application/json skipNullOn='everywhere'
 }]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>
-			<logger level="DEBUG" doc:name="flowEndLogger" doc:id="c2a04d64-6aec-42b8-b4a2-d3699cfc6334" />
+			<logger level="INFO" doc:name="flowEndLogger" doc:id="c2a04d64-6aec-42b8-b4a2-d3699cfc6334" message="#[payload]"/>
 		</async>
 	</sub-flow>
 	<sub-flow name="common-before-request-logging-subflow" doc:id="e60ecef7-4233-4cac-9fb1-9aab5ffeb3ea" >
@@ -111,7 +111,7 @@ output application/json
 }]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>
-			<logger level="DEBUG" doc:name="beforeRequest" doc:id="6382ac7a-b85d-4b60-bf88-6da5b926a673" />
+			<logger level="DEBUG" doc:name="beforeRequest" doc:id="6382ac7a-b85d-4b60-bf88-6da5b926a673" message="#[payload]"/>
 		</async>
 	</sub-flow>
 	<sub-flow name="common-after-request-logging-subflow" doc:id="4b38665a-5a97-4d17-82f1-7610936e1bfb" >
@@ -132,7 +132,7 @@ output application/json
 }]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>
-			<logger level="INFO" doc:name="afterRequest" doc:id="3f617807-4da3-4f6b-aa01-f5cf59e10f60" />
+			<logger level="DEBUG" doc:name="afterRequest" doc:id="3f617807-4da3-4f6b-aa01-f5cf59e10f60" message="#[payload]"/>
 		</async>
 	</sub-flow>
 </mule>
