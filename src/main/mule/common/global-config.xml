@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
     <configuration-properties doc:name="common-configuration-properties" doc:id="ca26e967-0c42-4cc3-a3c7-1f119ce94c41" file="properties/common-config.yaml" />
     <global-property doc:name="Global Property" doc:id="656ca31f-f655-4ba0-937d-966977d949c9" name="mule.env" value="local" />
     <configuration-properties doc:name="env-configuration-properties" doc:id="91a98303-9507-4dd1-b4d1-4d206e4f55ce" file="properties/${mule.env}-config.yaml" />
-    <configuration doc:name="configuration" doc:id="2da7038e-79f9-4381-8df7-4cc8d0a8c680" defaultErrorHandler-ref="global-error-handlerError_Handler" />
+    <configuration doc:name="configuration" doc:id="2da7038e-79f9-4381-8df7-4cc8d0a8c680" defaultErrorHandler-ref="global-error-handler-error-handler" />
 <!-- 	<api-gateway:autodiscovery apiId="20741586" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="0679b164-bf2c-476a-b3d7-c8d985f9446b" flowRef="product-pricing-exp-api-main" /> -->
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="c0732a1a-1460-442d-9b85-6920922adb36" file="secure/properties/secure-${mule.env}.yaml" key="1234567812345678"/>
 	<http:request-config name="product-pricing-prc-api-httpRequester-config" doc:name="HTTP Request config" doc:id="9b80be32-4b62-4c79-8ec9-3b769d77cf58" basePath="${productPricingPrcApi.baseUrl}">

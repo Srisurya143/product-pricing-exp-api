@@ -28,7 +28,7 @@ attributes.requestPath]]></ee:set-variable>
 		<flow-ref doc:name="common-process-start-logging-subflow" doc:id="a384dc12-ff6c-4b1f-87af-24a517bdd571" name="common-process-start-logging-subflow"/>
 		<apikit:router config-ref="product-pricing-exp-api-config" />
 		<flow-ref doc:name="common-process-end-logging-subflow" doc:id="a685ffce-ab25-4f0b-857d-6476a435966e" name="common-process-end-logging-subflow"/>
-		<error-handler ref="global-error-handlerError_Handler" />
+		<error-handler ref="global-error-handler-error-handler" />
     </flow>
     <flow name="product-pricing-exp-api-console">
         <http:listener config-ref="product-pricing-exp-api-httpListener-config" path="console/*">
@@ -41,7 +41,7 @@ attributes.requestPath]]></ee:set-variable>
             </http:error-response>
         </http:listener>
         <apikit:console config-ref="product-pricing-exp-api-config" />
-		<error-handler ref="global-error-handlerError_Handler" />
+		<error-handler ref="global-error-handler-error-handler" />
     </flow>
     <flow name="delete:\products\(productId):product-pricing-exp-api-config">
 		<flow-ref doc:name="delete-product-implementation-subflow" doc:id="b6650f08-db45-497c-804b-d17c64574095" name="delete-product-implementation-subflow"/>
