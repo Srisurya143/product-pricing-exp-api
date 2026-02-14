@@ -31,7 +31,7 @@ attributes.requestPath]]></ee:set-variable>
 		<error-handler ref="global-error-handlerError_Handler" />
     </flow>
     <flow name="product-pricing-exp-api-console">
-        <http:listener config-ref="product-pricing-exp-api-httpListener-config" path="/console/*">
+        <http:listener config-ref="product-pricing-exp-api-httpListener-config" path="console/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:response>

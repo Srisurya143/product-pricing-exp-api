@@ -6,7 +6,7 @@ api:
 http:
   listener:
     host: "0.0.0.0"
-    port: "8092"
+    port: "8081"
     basePath: "/api/"
     path: "v1/*"
     readTimeout: "30000"
