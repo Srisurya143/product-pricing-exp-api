@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+       <flow name="product-pricing-exp-api-main">
+        <http:listener config-ref="product-pricing-exp-api-httpListener-config" path="/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <ee:transform doc:name="initVariables" doc:id="40dcf716-7e52-4bb7-909b-b97305d5d1dd">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="apiKickOffTime"><![CDATA[%dw 2.0
+import * from dw::util::Timer
+output application/json
+---
+currentMilliseconds()]]></ee:set-variable>
+				<ee:set-variable variableName="resourcePath"><![CDATA[%dw 2.0
+output application/json
+---
+attributes.requestPath]]></ee:set-variable>
+				<ee:set-variable resource="dwl/loggingVars.dwl" variableName="loggingVars" />
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="common-process-start-logging-subflow" doc:id="a384dc12-ff6c-4b1f-87af-24a517bdd571" name="common-process-start-logging-subflow"/>
+		<apikit:router config-ref="product-pricing-exp-api-config" />
+		<flow-ref doc:name="common-process-end-logging-subflow" doc:id="a685ffce-ab25-4f0b-857d-6476a435966e" name="common-process-end-logging-subflow"/>
+		<error-handler ref="global-error-handlerError_Handler" />
+    </flow>
+    <flow name="product-pricing-exp-api-console">
+        <http:listener config-ref="product-pricing-exp-api-httpListener-config" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="product-pricing-exp-api-config" />
+		<error-handler ref="global-error-handlerError_Handler" />
+    </flow>
+    <flow name="delete:\products\(productId):product-pricing-exp-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:variables>
+                <ee:set-variable variableName="productId">attributes.uriParams.'productId'</ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  productId: "P00000000001",
+  successful: true,
+  salesforceId: "01t5g000009XyzABC"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="patch:\products\(productId):application\json:product-pricing-exp-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:variables>
+                <ee:set-variable variableName="productId">attributes.uriParams.'productId'</ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  successful: true,
+  salesforceId: "01t5g000009XyzABC",
+  productId: "P00000000001"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="get:\health-check:product-pricing-exp-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  message: "OK",
+  reason: "Health check",
+  response: {
+    application: "product-pricing-exp-api",
+    buildVersion: "v1",
+    buildTimeStamp: "2026-02-13T18:00:08.668Z",
+    code: "OK",
+    failed: false,
+    host: "cloudhub.io",
+    tier: "dev",
+    systems: [
+      {
+        code: "OK",
+        message: "product-pricing-papi-api is reachable",
+        name: "product-pricing-exp-api"
+      }, 
+      {
+        code: "OK",
+        message: "product-pricing-sys-api is reachable",
+        name: "product-pricing-sys-api"
+      }, 
+      {
+        code: "OK",
+        message: "currency-exchange-api is reachable",
+        name: "currency-exchange-api"
+      }, 
+      {
+        code: "OK",
+        message: "Salesforce is reachable",
+        name: "ej.salesforce.com"
+      }
+    ]
+  },
+  status: 200
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="get:\ping:product-pricing-exp-api-config">
+		<flow-ref doc:name="ping-implementation-subflow" doc:id="c51d8bcf-9af7-4d78-9a04-49912c1e50c2" name="ping-implementation-subflow"/>
+    </flow>
+    <flow name="get:\products:product-pricing-exp-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  limit: 2,
+  offset: 0,
+  totalRecords: 5,
+  currencyRequested: "INR",
+  products: [
+    {
+      productId: "P00000000001",
+      productName: "iPhone 15 Pro",
+      productCode: "XYZ12345",
+      description: "Latest Apple iPhone 15 Pro 256GB",
+      currencyCode: "INR",
+      productPrice: 83000.75
+    }, 
+    {
+      productId: "P00000000002",
+      productName: "Samsung Galaxy S24",
+      productCode: "XYZ12346",
+      description: "Samsung flagship smartphone",
+      currencyCode: "INR",
+      productPrice: 74999.5
+    }
+  ]
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\products:application\json:product-pricing-exp-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    successful: true,
+    salesforceId: "01t5g000009XyzABC",
+    productId: "P00000000001"
+  }, 
+  {
+    successful: true,
+    salesforceId: "01t5g000009XyzABC",
+    productId: "P00000000002"
+  }
+] as Array {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+</mule>

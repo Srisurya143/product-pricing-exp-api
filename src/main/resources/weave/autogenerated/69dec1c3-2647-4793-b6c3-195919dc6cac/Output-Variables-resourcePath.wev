@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_69dec1c3_2647_4793_b6c3_195919dc6cac_Output_Variables_resourcePath = String
+

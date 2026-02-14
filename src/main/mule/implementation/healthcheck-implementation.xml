@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="healthcheck-implementation-subflow" doc:id="cb8857d7-4946-487d-9bac-d2f96e7142b5" >
+		<ee:transform doc:name="updateFlowname" doc:id="ee94cf3a-1be9-4520-8244-ef8edb90ccd0" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="flowName" ><![CDATA[%dw 2.0
+output application/json
+---
+vars.loggingVars update {
+	case .flowName -> flow.name
+}
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="57945dc8-e717-45ca-b780-019100a449ae" name="common-flow-start-logging-subflow" />
+		<flow-ref doc:name="common-before-request-logging-subflow" doc:id="bde35dae-b9ca-42a7-bce4-fe6ed5366c46" name="common-before-request-logging-subflow"/>
+		<http:request doc:name="Request" doc:id="683ef63a-cf44-4816-8704-ce8253bfb8f2" config-ref="product-pricing-prc-api-http-request-config" path="http://localhost:8082/v1/product-pricing-prc-api/health-check"/>
+		<ee:transform doc:name="healthCheckResponse" doc:id="abd28c08-2d4a-436a-8746-314d59d4a8b0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="common-after-request-logging-subflow" doc:id="499ea429-e0fb-44b0-a2c6-7839c7aac881" name="common-after-request-logging-subflow"/>
+		<flow-ref doc:name="common-flow-end-logging-subflow" doc:id="e343ac69-79c8-42c1-8e73-2fb4237eaab3" name="common-flow-end-logging-subflow" />
+	</sub-flow>
+</mule>

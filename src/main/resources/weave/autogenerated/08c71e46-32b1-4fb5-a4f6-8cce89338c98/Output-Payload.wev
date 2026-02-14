@@ -1,0 +1,11 @@
+%dw 2.0
+
+type auto_08c71e46_32b1_4fb5_a4f6_8cce89338c98_Output_Payload = {
+  correlationId: String, 
+  applicationName: String, 
+  status: "success" | "error", 
+  timestamp: String, 
+  _?: Any
+} {"description": "Ping Data Type",
+"label": "API Health"}
+

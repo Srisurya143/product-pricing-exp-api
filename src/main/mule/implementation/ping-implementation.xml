@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="ping-implementation-subflow" doc:id="08c71e46-32b1-4fb5-a4f6-8cce89338c98" >
+		<ee:transform doc:name="updateFlowname" doc:id="94efcd5a-02ef-4b5d-85f9-e2e8df145dbb" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="flowName" ><![CDATA[%dw 2.0
+output application/json
+---
+vars.loggingVars update {
+	case .flowName -> flow.name
+}
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="65f2af02-b7dd-44ff-827e-34f22d0fa293" name="common-flow-start-logging-subflow" />
+		<ee:transform doc:name="pingResponse" doc:id="61717ae1-c410-4e36-a0f7-6fc3b75a5a0f" >
+			<ee:message >
+				<ee:set-payload resource="dwl/pingResponse.dwl" />
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="common-flow-end-logging-subflow" doc:id="6b8ad0ad-6522-433f-885f-7e3e4abae7e3" name="common-flow-end-logging-subflow"/>
+	</sub-flow>
+</mule>

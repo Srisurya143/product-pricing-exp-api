@@ -1,0 +1,42 @@
+api:
+  Name: "product-pricing-exp-api"
+  Version: "1.0.0"
+  status: "Running"
+  
+flowName:
+  "mainFlow": "product-pricing-exp-api-main"
+  "postOrdersSubflow": "mdp-orders-post-subflow"
+  "patchOrdersSubflow": "mdp-orders-patch-subflow"
+  "getOrdersSubflow": "mdp-orders-get-subflow"
+  "pingSubflow": "mdp-orders-ping-subflow"
+  "healthCheckSubflow": "mdp-orders-healthcheck-subflow"
+  "getOrdersByIdSubflow": "mdp-orders-getid-subflow"
+  
+httpRetry:
+  frequency: "2000"
+  attempts: "3"
+  
+healthCheck:
+  reason: "Health Check"
+  ok: "OK"
+  okCode: "OK"
+  host: "localhost"
+  appName: "mdp-orders-prc-api"
+  isReachable: "mdp-orders-prc-api is reachable"
+  isNotReachable: "mdp-orders-prc-api is not reachable"
+  systems:
+    okCode: "OK"
+    error: "ERROR"
+
+  
+step:
+  processStart: "Process start"
+  processEnd: "Process End"
+  flowStart: "Flow Start"
+  flowEnd: "Flow End"
+  beforeRequest: "Before Request"
+  afterRequest: "After Request"
+  
+errorLogger:
+  transactionlevel: "Error"
+  status: "Error"

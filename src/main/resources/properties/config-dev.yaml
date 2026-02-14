@@ -1,0 +1,7 @@
+productPricingPrcApi:
+  host: "localhost"
+  port: "8082"
+  baseUrl: "/api"
+  path: "/products"
+  ping: "/ping"
+  healthCheck: "/healthcheck"
