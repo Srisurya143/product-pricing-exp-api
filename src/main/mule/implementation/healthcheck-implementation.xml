@@ -16,6 +16,7 @@ vars.loggingVars update {
 	case .flowName -> "healthcheck-implementation-subflow"
 }
 ]]></ee:set-variable>
+				<ee:set-variable variableName="host" ><![CDATA[attributes.headers.host default ""]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="57945dc8-e717-45ca-b780-019100a449ae" name="common-flow-start-logging-subflow" />
@@ -30,7 +31,7 @@ vars.loggingVars update {
 		</http:request>
 			<ee:transform doc:name="responseMessage" doc:id="9084d023-da88-4c97-9ade-c6a13c2522ab" >
 				<ee:message >
-					<ee:set-payload resource="dwl/healthCheckResponse.dwl" />
+					<ee:set-payload resource="dwl/healthCheckSuccessResponse.dwl" />
 				</ee:message>
 			</ee:transform>
 			<error-handler >
