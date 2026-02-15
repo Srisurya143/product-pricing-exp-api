@@ -73,18 +73,9 @@ output application/json
                 </ee:transform>
             </on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="bf7817bd-72a0-460b-9741-87c468d3a766" type="ANY">
-			<ee:transform doc:name="Transform Message" doc:id="a14eb3b1-bf70-4138-9eb4-e5b8d6bb5979" >
+			<ee:transform doc:name="errorResponseMessage" doc:id="a14eb3b1-bf70-4138-9eb4-e5b8d6bb5979" >
 				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-if(!isEmpty(error.errorMessgae)) error.errorMessage
-else
-{
-	"errorType": error.errorType.namespace as String ++ ":" ++ error.errorType.identifier as String,
-	"errorDescription": error.description,
-	"detailedDescription": error.detailedDescription
-}]]></ee:set-payload>
+					<ee:set-payload resource="dwl/errorResponseMessage.dwl" />
 				</ee:message>
 			</ee:transform>
 			<flow-ref doc:name="common-error-logging-subflow" doc:id="f8495b92-ae2c-4dc7-8b11-458abb39e6da" name="common-error-logging-subflow"/>

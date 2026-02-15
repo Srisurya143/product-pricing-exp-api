@@ -13,26 +13,39 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 output application/json
 ---
 vars.loggingVars update {
-	case .flowName -> flow.name
+	case .flowName -> "healthcheck-implementation-subflow"
 }
 ]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="57945dc8-e717-45ca-b780-019100a449ae" name="common-flow-start-logging-subflow" />
 		<flow-ref doc:name="common-before-request-logging-subflow" doc:id="bde35dae-b9ca-42a7-bce4-fe6ed5366c46" name="common-before-request-logging-subflow"/>
-		<http:request doc:name="healthCheckRequest" doc:id="683ef63a-cf44-4816-8704-ce8253bfb8f2" config-ref="product-pricing-prc-api-httpRequester-config" path="${productPricingPrcApi.healthCheck}">
-			<http:headers ><![CDATA[#[output application/java
+		<try doc:name="Try" doc:id="c4b59637-3a14-4bf2-9e6c-91cca8ee844d" >
+			<http:request doc:name="healthCheckRequest" doc:id="683ef63a-cf44-4816-8704-ce8253bfb8f2" config-ref="product-pricing-prc-api-httpRequester-config" path="${productPricingPrcApi.healthCheck}">
+			<http:headers><![CDATA[#[output application/java
 ---
 {
 	"x-correlation-id" : vars.loggingVars.correlationId
 }]]]></http:headers>
 		</http:request>
+			<ee:transform doc:name="responseMessage" doc:id="9084d023-da88-4c97-9ade-c6a13c2522ab" >
+				<ee:message >
+					<ee:set-payload resource="dwl/healthCheckResponse.dwl" />
+				</ee:message>
+			</ee:transform>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="2b32240e-b3fd-43ca-9906-d26342ecae1c" >
+					<ee:transform doc:name="errorResponseMessage" doc:id="dac52d1a-e8b9-4436-92dd-59c880a4d5ad" >
+						<ee:message >
+							<ee:set-payload resource="dwl/healthCheckErrorResponse.dwl" />
+						</ee:message>
+					</ee:transform>
+				</on-error-continue>
+			</error-handler>
+		</try>
 		<ee:transform doc:name="healthCheckResponse" doc:id="abd28c08-2d4a-436a-8746-314d59d4a8b0" >
 			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-payload]]></ee:set-payload>
+				<ee:set-payload resource="dwl/healthCheckResponse.dwl" />
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="common-after-request-logging-subflow" doc:id="499ea429-e0fb-44b0-a2c6-7839c7aac881" name="common-after-request-logging-subflow"/>

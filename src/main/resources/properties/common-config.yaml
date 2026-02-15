@@ -24,17 +24,6 @@ httpRetry:
   frequency: "2000"
   attempts: "3"
   
-healthCheck:
-  reason: "Health Check"
-  ok: "OK"
-  okCode: "OK"
-  host: "localhost"
-  appName: "mdp-orders-prc-api"
-  isReachable: "mdp-orders-prc-api is reachable"
-  isNotReachable: "mdp-orders-prc-api is not reachable"
-  systems:
-    okCode: "OK"
-    error: "ERROR"
 
   
 step:
