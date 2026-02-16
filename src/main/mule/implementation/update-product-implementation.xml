@@ -21,6 +21,11 @@ vars.loggingVars update {
 		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="468c561c-a8ae-4a27-bbac-fcf644143bc7" name="common-flow-start-logging-subflow" />
 		<flow-ref doc:name="common-before-request-logging-subflow" doc:id="f4356465-a792-4c56-bea4-5858c6392292" name="common-before-request-logging-subflow" />
 		<http:request doc:name="productsPricingPrcApiUpdateRequest" doc:id="0a499708-663b-477e-9a27-8e12809c9fc0" config-ref="product-pricing-prc-api-http-requester-config" method="PATCH" path="${productPricingPrcApi.productByIdPath}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x-correlation-id" : vars.loggingVars.correlationId
+}]]]></http:headers>
 			<http:uri-params ><![CDATA[#[output application/java
 ---
 {
