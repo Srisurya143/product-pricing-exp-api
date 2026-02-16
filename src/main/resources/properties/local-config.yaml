@@ -9,5 +9,5 @@ productPricingPrcApi:
   productsPath: "/products"
   productByIdPath: "/products/{productId}"
   ping: "/ping"
-  healthCheck: "/healthcheck"
-  timeout: "30000"
+  healthCheck: "/health-check"
+  timeout: "45000"

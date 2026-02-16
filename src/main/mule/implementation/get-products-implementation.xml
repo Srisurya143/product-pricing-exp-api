@@ -20,7 +20,7 @@ vars.loggingVars update {
 		</ee:transform>
 		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="bd1381a6-f93e-4ecc-b017-a663b770e456" name="common-flow-start-logging-subflow" />
 		<flow-ref doc:name="common-before-request-logging-subflow" doc:id="f1d5f197-8f65-4949-9ec0-93e3c9b57f02" name="common-before-request-logging-subflow" />
-		<http:request doc:name="productsPricingPrcApiGetRequest" doc:id="a9e7e004-d347-4793-a8ce-31807263bdd9" config-ref="product-pricing-prc-api-httpRequester-config" path="${productPricingPrcApi.productsPath}" >
+		<http:request doc:name="productsPricingPrcApiGetRequest" doc:id="a9e7e004-d347-4793-a8ce-31807263bdd9" config-ref="product-pricing-prc-api-http-requester-config" path="${productPricingPrcApi.productsPath}" >
 			<http:headers ><![CDATA[#[output application/java
 ---
 {

@@ -2,6 +2,7 @@ api:
   Name: "product-pricing-exp-api"
   Version: "1.0.0"
   status: "Running"
+  id: "20741586"
 
 http:
   listener:
@@ -20,9 +21,11 @@ https:
   port: "8092"
 
   
+  
 httpRetry:
   frequency: "2000"
   attempts: "3"
+  connectionIdelTimeOut: "45000"
   
 
   
