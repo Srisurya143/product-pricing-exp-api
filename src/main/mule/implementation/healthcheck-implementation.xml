@@ -29,11 +29,6 @@ vars.loggingVars update {
 	"x-correlation-id" : vars.loggingVars.correlationId
 }]]]></http:headers>
 		</http:request>
-			<ee:transform doc:name="responseMessage" doc:id="9084d023-da88-4c97-9ade-c6a13c2522ab" >
-				<ee:message >
-					<ee:set-payload resource="dwl/healthCheckSuccessResponse.dwl" />
-				</ee:message>
-			</ee:transform>
 			<error-handler >
 				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="2b32240e-b3fd-43ca-9906-d26342ecae1c" >
 					<ee:transform doc:name="errorResponseMessage" doc:id="dac52d1a-e8b9-4436-92dd-59c880a4d5ad" >
