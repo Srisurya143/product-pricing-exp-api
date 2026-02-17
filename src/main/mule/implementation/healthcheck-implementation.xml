@@ -22,7 +22,7 @@ vars.loggingVars update {
 		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="57945dc8-e717-45ca-b780-019100a449ae" name="common-flow-start-logging-subflow" />
 		<flow-ref doc:name="common-before-request-logging-subflow" doc:id="bde35dae-b9ca-42a7-bce4-fe6ed5366c46" name="common-before-request-logging-subflow"/>
 		<try doc:name="Try" doc:id="c4b59637-3a14-4bf2-9e6c-91cca8ee844d" >
-			<http:request doc:name="healthCheckRequest" doc:id="683ef63a-cf44-4816-8704-ce8253bfb8f2" config-ref="product-pricing-prc-api-http-requester-config" path="${productPricingPrcApi.healthCheck}">
+			<http:request doc:name="healthCheckRequest" doc:id="683ef63a-cf44-4816-8704-ce8253bfb8f2" config-ref="product-pricing-prc-api-http-requester-config" path="${productPricingPrcApi.healthCheck}" sendCorrelationId="ALWAYS" correlationId="#[vars.loggingVars.correlationId]">
 			<http:headers><![CDATA[#[output application/java
 ---
 {

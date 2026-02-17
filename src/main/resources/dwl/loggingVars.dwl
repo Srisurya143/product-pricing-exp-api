@@ -5,6 +5,6 @@ output application/json
 	"appName": Mule::p('api.Name'),
 	"appVersion": Mule::p('api.Version'),
 	"timeStamp": now(),
-	"correlationId": attributes.headers.correlationId default correlationId,
+	"correlationId": attributes.headers.'x-correlation-id' default correlationId,
 	"flowName": "product-pricing-exp-api-main"	
 }
