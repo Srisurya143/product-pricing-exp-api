@@ -40,3 +40,6 @@ step:
 errorLogger:
   transactionlevel: "Error"
   status: "Error"
+  
+apiKit:
+  errors: "APIKIT:NOT_FOUND, APIKIT:METHOD_NOT_ALLOWED, APIKIT:NOT_ACCEPTABLE, APIKIT:UNSUPPORTED_MEDIA_TYPE, APIKIT:NOT_IMPLEMENTED"
