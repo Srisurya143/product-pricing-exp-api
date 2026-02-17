@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<ee:transform doc:name="updateFlowname" doc:id="498da6c5-dac3-4c13-b2a4-15390e1ef3e0" >
 			<ee:message />
 			<ee:variables >
-				<ee:set-variable variableName="flowName" ><![CDATA[%dw 2.0
+				<ee:set-variable variableName="loggingVars" ><![CDATA[%dw 2.0
 output application/json
 ---
 vars.loggingVars update {

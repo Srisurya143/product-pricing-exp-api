@@ -8,19 +8,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<async doc:name="Async" doc:id="2e554153-ec13-46ac-a603-d50aa05c71d3" >
 			<ee:transform doc:name="processStartTransformMessage" doc:id="0df28853-4aad-4648-ac8e-5a026eb243b3" >
 				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-output application/json skipNullOn='everywhere'
----
-{
-	"flowName": vars.loggingVars.flowName,
-	"apiName": vars.loggingVars.appName,
-	"appVersion": vars.loggingVars.appVersion,
-	"timeStamp": now(),
-	"correlationId": vars.loggingVars.correlationId,
-	"processStartTime": vars.apiKickOffTime	as String ++ "ms",
-	"rsourcePath": vars.resourcePath,
-	"step": Mule::p('step.processStart')
-}]]></ee:set-payload>
+					<ee:set-payload resource="dwl/processStartLogger.dwl" />
 				</ee:message>
 			</ee:transform>
 			<logger level="INFO" doc:name="processStartLogger" doc:id="17c8ce7d-f89b-4b53-852d-b83e0e8ec338" message="#[payload]"/>
@@ -30,20 +18,7 @@ output application/json skipNullOn='everywhere'
 		<async doc:name="Async" doc:id="e539f67d-737b-41fe-ac14-c0096c29945a" >
 			<ee:transform doc:name="processEndTransformMessage" doc:id="f87f6e8d-92f2-4b0b-87b7-9cb5a9c27665" >
 				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-import * from dw::util::Timer
-output application/json
----
-{
-	"flowName": vars.loggingVars.flowName default "",
-	"apiName": vars.loggingVars.appName,
-	"appVersion": vars.loggingVars.appVersion,
-	"timeStamp": now(),
-	"correlationId": vars.loggingVars.correlationId,
-	"step": Mule::p('step.processEnd'),
-	"code": if(!isEmpty(attributes.statusCode)) attributes.statusCode else "NA",
-	"processEndTime": (currentMilliseconds() - vars.apiKickOffTime) as String ++ "ms"
-}]]></ee:set-payload>
+					<ee:set-payload resource="dwl/processEndLogger.dwl" />
 				</ee:message>
 			</ee:transform>
 			<logger level="INFO" doc:name="processEndLogger" doc:id="55fb83cb-df45-46ca-9df3-40f4aa6b3543" message="#[payload]"/>
@@ -53,19 +28,7 @@ output application/json
 		<async doc:name="Async" doc:id="2f604a25-1983-415f-9f7a-d772a34b02db" >
 			<ee:transform doc:name="flowStartTransformMessage" doc:id="8c366c9c-d44a-4415-99c6-e969badee524" >
 				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-import * from dw::util::Timer
-output application/json
----
-{
-	"flowName": vars.loggingVars.flowName default "",
-	"apiName": vars.loggingVars.appName,
-	"appVersion": vars.loggingVars.appVersion,
-	"timeStamp": now(),
-	"correlationId": vars.loggingVars.correlationId,
-	"step": Mule::p('step.flowStart')
-	
-}]]></ee:set-payload>
+					<ee:set-payload resource="dwl/flowStartLogger.dwl" />
 				</ee:message>
 			</ee:transform>
 			<logger level="INFO" doc:name="flowStartLogger" doc:id="c2455d22-0cb4-4c65-8947-326e7ec3107d" message="#[payload]"/>
@@ -75,18 +38,7 @@ output application/json
 		<async doc:name="Async" doc:id="a6a0335c-e579-4fee-8041-2667ccd66a5c" >
 			<ee:transform doc:name="flowEndTransformMessage" doc:id="6fd20840-ae7f-44f5-93a4-ae0431e22ae3" >
 				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-import * from dw::util::Timer
-output application/json skipNullOn='everywhere'
----
-{
-	"apiName": vars.loggingVars.appName,
-	"appVersion": vars.loggingVars.appVersion,
-	"timeStamp": now(),
-	"correlationId": vars.loggingVars.correlationId,
-	"flowName": vars.loggingVars.flowName default "",
-	"step": Mule::p('step.flowEnd')
-}]]></ee:set-payload>
+					<ee:set-payload resource="dwl/flowEndLogger.dwl" />
 				</ee:message>
 			</ee:transform>
 			<logger level="INFO" doc:name="flowEndLogger" doc:id="c2a04d64-6aec-42b8-b4a2-d3699cfc6334" message="#[payload]"/>
@@ -96,19 +48,7 @@ output application/json skipNullOn='everywhere'
 		<async doc:name="Async" doc:id="94a0bbc1-297c-48a6-91e4-23f5f6701c07" >
 			<ee:transform doc:name="beforeRequest" doc:id="3d330004-112c-4c8c-957d-2c6b9db2cbb9" >
 				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-import * from dw::util::Timer
-output application/json
----
-{
-	"apiName": vars.loggingVars.appName,
-	"appVersion": vars.loggingVars.appVersion,
-	"timeStamp": now(),
-	"correlationId": vars.loggingVars.correlationId,
-	"flowName": vars.loggingVars.flowName default "",
-	"step": Mule::p('step.beforeRequest'),
-	"requestPayload": payload
-}]]></ee:set-payload>
+					<ee:set-payload resource="dwl/beforeRequest.dwl" />
 				</ee:message>
 			</ee:transform>
 			<logger level="DEBUG" doc:name="beforeRequest" doc:id="6382ac7a-b85d-4b60-bf88-6da5b926a673" message="#[payload]"/>
@@ -118,18 +58,7 @@ output application/json
 		<async doc:name="Async" doc:id="4500e1fc-79ad-4296-95b5-b55a5b6582b7" >
 			<ee:transform doc:name="afterRequest" doc:id="d9694478-4067-4345-81a7-91dd3f15e8cc" >
 				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-import * from dw::util::Timer
-output application/json
----
-{
-	"apiName": vars.loggingVars.appName,
-	"appVersion": vars.loggingVars.appVersion,
-	"timeStamp": now(),
-	"correlationId": vars.loggingVars.correlationId,
-	"step": Mule::p('step.afterRequest'),
-	"requestPayload": payload
-}]]></ee:set-payload>
+					<ee:set-payload resource="dwl/afterRequest.dwl" />
 				</ee:message>
 			</ee:transform>
 			<logger level="DEBUG" doc:name="afterRequest" doc:id="3f617807-4da3-4f6b-aa01-f5cf59e10f60" message="#[payload]"/>

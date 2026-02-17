@@ -9,14 +9,14 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<ee:transform doc:name="updateFlowname" doc:id="ee94cf3a-1be9-4520-8244-ef8edb90ccd0" >
 			<ee:message />
 			<ee:variables >
-				<ee:set-variable variableName="flowName" ><![CDATA[%dw 2.0
+				<ee:set-variable variableName="host" ><![CDATA[attributes.headers.host default ""]]></ee:set-variable>
+				<ee:set-variable variableName="loggingVars" ><![CDATA[%dw 2.0
 output application/json
 ---
 vars.loggingVars update {
 	case .flowName -> "healthcheck-implementation-subflow"
 }
 ]]></ee:set-variable>
-				<ee:set-variable variableName="host" ><![CDATA[attributes.headers.host default ""]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<flow-ref doc:name="common-flow-start-logging-subflow" doc:id="57945dc8-e717-45ca-b780-019100a449ae" name="common-flow-start-logging-subflow" />
