@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="healthcheck-implementation-test-suite.xml" />
+	<munit:test name="healthcheck-implementation-test-suite-healthcheck-implementation-subflowTest" doc:id="87c8f654-5dba-45ea-9868-059a70f160d5" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="common-flow-start-logging-subflow" doc:id="35dd8fb3-52f1-42e6-86e2-7c13b0a24e9b" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="57945dc8-e717-45ca-b780-019100a449ae" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="common-before-request-logging-subflow" doc:id="2503951f-581f-46ed-8aaa-d32d3b22c2d6" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="bde35dae-b9ca-42a7-bce4-fe6ed5366c46" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="healthCheckRequest" doc:id="9e11ada8-1dc1-4337-9ad7-53a542a7efdf" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="683ef63a-cf44-4816-8704-ce8253bfb8f2" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="common-after-request-logging-subflow" doc:id="791bdd12-4ca3-4884-b4c5-9ec05662bd26" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="499ea429-e0fb-44b0-a2c6-7839c7aac881" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="common-flow-end-logging-subflow" doc:id="e54c0cc5-8170-440f-b753-71f47311b748" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e343ac69-79c8-42c1-8e73-2fb4237eaab3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="61f2da14-a456-4ae4-af34-5f97d456bab8" >
+				<munit:payload value='#[output json --- readUrl("classpath://testVars/healthCheckTest.json", "application/json")]' encoding="UTF-8" mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to healthcheck-implementation-subflow" doc:id="b25961a4-2016-4585-a91d-96046f2ab478" name="healthcheck-implementation-subflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="healthCheckRequest" doc:id="f5858f1b-0276-466f-b4ef-1dfe1c609f7f" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="683ef63a-cf44-4816-8704-ce8253bfb8f2" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:assert doc:name="healthCheckResponse" doc:id="1b1d8b3b-d3fc-4081-bf22-73dea57cab74" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

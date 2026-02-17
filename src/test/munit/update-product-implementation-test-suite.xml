@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="update-product-implementation-test-suite.xml" />
+	<munit:test name="update-product-implementation-test-suite-update-product-implementation-subflowTest" doc:id="ca82b747-9eb0-4c8f-ae4d-f0b3dbf35e5f" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="common-flow-start-logging-subflow" doc:id="b620bba3-e571-42f6-85ae-9a04290cf60c" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="468c561c-a8ae-4a27-bbac-fcf644143bc7" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="common-before-request-logging-subflow" doc:id="6c0d766c-2c2e-423b-b7f1-f029d71d45a4" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f4356465-a792-4c56-bea4-5858c6392292" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="productsPricingPrcApiUpdateRequest" doc:id="59e67632-03f4-4e8f-84fb-faaa5823c064" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="0a499708-663b-477e-9a27-8e12809c9fc0" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="common-after-request-logging-subflow" doc:id="35c65a28-fbb5-4396-a19e-9dbb1f9b24ee" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ec45aeaa-4599-46e0-890a-dc334e54f746" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="common-flow-end-logging-subflow" doc:id="6862a7f9-66b9-4e9d-af9f-2175317de919" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="102c9e9a-3f27-4346-aa06-9a98b5351ac3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to update-product-implementation-subflow" doc:id="5c65242d-f67d-4739-ab62-b35b4c2c713f" name="update-product-implementation-subflow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="updateProductResponse" doc:id="935c4a9e-2dd7-4926-bda0-db43f61479e1" />
+			<munit-tools:verify-call doc:name="productsPricingPrcApiUpdateRequest" doc:id="3b3d4f84-8572-4243-97c1-79f0c985c251" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="0a499708-663b-477e-9a27-8e12809c9fc0" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
