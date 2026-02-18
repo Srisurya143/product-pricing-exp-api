@@ -21,7 +21,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
     <configuration doc:name="configuration" doc:id="2da7038e-79f9-4381-8df7-4cc8d0a8c680" defaultErrorHandler-ref="global-error-handler-error-handler" />
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="api-autodiscovery" doc:id="0679b164-bf2c-476a-b3d7-c8d985f9446b" flowRef="product-pricing-exp-api-main" />
 	<secure-properties:config name="secure-properties-config" doc:name="Secure Properties Config" doc:id="c0732a1a-1460-442d-9b85-6920922adb36" file="secure/properties/secure-${mule.env}.yaml" key="${secure.key}"/>
-	<http:request-config name="product-pricing-prc-api-http-requester-config" doc:name="HTTP Request config" doc:id="9b80be32-4b62-4c79-8ec9-3b769d77cf58" basePath="${productPricingPrcApi.baseUrl}">
+	<http:request-config name="product-pricing-prc-api-http-requester-config" doc:name="HTTP Request config" doc:id="9b80be32-4b62-4c79-8ec9-3b769d77cf58" basePath="${productPricingPrcApi.baseUrl}" responseTimeout="40000">
 		<http:request-connection host="${productPricingPrcApi.host}" port="${productPricingPrcApi.port}" connectionIdleTimeout="${httpRetry.connectionIdelTimeOut}" protocol="HTTPS">
 			<reconnection >
 				<reconnect frequency="${httpRetry.frequency}" count="${httpRetry.attempts}" />

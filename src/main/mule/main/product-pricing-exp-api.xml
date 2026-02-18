@@ -18,10 +18,6 @@ import * from dw::util::Timer
 output application/json
 ---
 currentMilliseconds()]]></ee:set-variable>
-				<ee:set-variable variableName="resourcePath"><![CDATA[%dw 2.0
-output application/json
----
-attributes.requestPath]]></ee:set-variable>
 				<ee:set-variable resource="dwl/loggingVars.dwl" variableName="loggingVars" />
 			</ee:variables>
 		</ee:transform>
