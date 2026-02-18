@@ -12,3 +12,7 @@ http:
       alias: "![]"
       keyPassword: "![]"
       password: "![]"
+
+productPricingPrcApi:
+  client_id: "![riqU90lwqvetel+ljUNKTSuwu1Yk4nSnWI4o6K/E59PX9pub6ZA7vVwxSoY8A6ir]"
+  client_secret: "![arqvtMGov73GawbbieWxG8wRA0I+S0Xm/VSuyHlhZo0qREm1NEYKH0cd3LPUkjlu]"      
